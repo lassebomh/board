@@ -1,3 +1,7 @@
+<script lang="ts">
+  import king from "$lib/assets/sprite/king.svg?raw";
+</script>
+
 <h1>Welcome to SvelteKit</h1>
 <p>
   Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the
@@ -5,5 +9,56 @@
 </p>
 
 <svg width="200" version="1.1" height="200" xmlns="http://www.w3.org/2000/svg">
-  <use href="/svg/king.svg#king"></use>
+  <g id="sprites">
+    <symbol id="sprite_king">
+      {@html king}
+    </symbol>
+  </g>
+  <use href="#sprite_king" filter="url(#filter_lifted)"></use>
+
+  <g id="filters">
+    <filter width="150%" height="150%" id="filter_piece_mutual">
+      <feDropShadow dx="1" dy="1" stdDeviation="1"></feDropShadow>
+    </filter>
+    <filter width="150%" height="150%" id="filter_stack_mutual">
+      <feDropShadow dx="1" dy="1" stdDeviation="1"></feDropShadow>
+    </filter>
+    <filter width="150%" height="150%" id="filter_lifted">
+      <feDropShadow dx="5" dy="5" stdDeviation="5" flood-opacity="0.5"
+      ></feDropShadow>
+    </filter>
+    <filter width="150%" height="150%" id="filter_piece_player_0">
+      <feMorphology
+        in="SourceGraphic"
+        result="DILATED"
+        operator="dilate"
+        radius="1"
+      ></feMorphology>
+      <feFlood flood-color="red" flood-opacity="1" result="COLOR"></feFlood>
+      <feComposite in="COLOR" in2="DILATED" operator="in" result="OUTLINE"
+      ></feComposite>
+      <feMerge>
+        <feMergeNode in="OUTLINE"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+      <feDropShadow dx="1" dy="1" stdDeviation="1"></feDropShadow>
+    </filter>
+    <filter width="150%" height="150%" id="filter_stack_player_0">
+      <feMorphology
+        in="SourceGraphic"
+        result="DILATED"
+        operator="dilate"
+        radius="1"
+      >
+      </feMorphology>
+      <feFlood flood-color="red" flood-opacity="1" result="COLOR"></feFlood>
+      <feComposite in="COLOR" in2="DILATED" operator="in" result="OUTLINE">
+      </feComposite>
+      <feMerge>
+        <feMergeNode in="OUTLINE"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+      <feDropShadow dx="1" dy="1" stdDeviation="1"></feDropShadow>
+    </filter>
+  </g>
 </svg>
