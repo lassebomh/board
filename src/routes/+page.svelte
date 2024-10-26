@@ -1,5 +1,28 @@
 <script lang="ts">
   import king from "$lib/assets/sprite/king.svg?raw";
+
+  let ground: SVGGElement;
+  let lift: SVGGElement;
+
+  function hoverAction(el: SVGUseElement) {
+    function mouseleave(e: MouseEvent) {
+      el.setAttribute("filter", "");
+    }
+
+    function mouseenter(e: MouseEvent) {
+      el.setAttribute("filter", "url(#filter_lifted)");
+      el.addEventListener("mouseleave", mouseleave);
+    }
+
+    el.addEventListener("mouseenter", mouseenter);
+
+    return {
+      destroy() {
+        el.removeEventListener("mouseenter", mouseenter);
+        el.removeEventListener("mouseleave", mouseleave);
+      },
+    };
+  }
 </script>
 
 <h1>Welcome to SvelteKit</h1>
@@ -14,7 +37,12 @@
       {@html king}
     </symbol>
   </g>
-  <use href="#sprite_king" filter="url(#filter_lifted)"></use>
+
+  <g bind:this={ground}>
+    <use href="#sprite_king" use:hoverAction></use>
+  </g>
+
+  <g bind:this={lift}></g>
 
   <g id="filters">
     <filter width="150%" height="150%" id="filter_piece_mutual">
@@ -24,7 +52,7 @@
       <feDropShadow dx="1" dy="1" stdDeviation="1"></feDropShadow>
     </filter>
     <filter width="150%" height="150%" id="filter_lifted">
-      <feDropShadow dx="5" dy="5" stdDeviation="5" flood-opacity="0.5"
+      <feDropShadow dx="3" dy="5" stdDeviation="3" flood-opacity="0.3"
       ></feDropShadow>
     </filter>
     <filter width="150%" height="150%" id="filter_piece_player_0">
