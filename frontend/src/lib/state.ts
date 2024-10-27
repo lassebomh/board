@@ -2,7 +2,6 @@ export type Player = {
   color: string;
   name: string;
   id: string;
-  held: Piece[];
 };
 
 export type Sprite = {
@@ -12,6 +11,7 @@ export type Sprite = {
 
 export type Piece = {
   sprite_id: string;
+  player_id: string | null;
   x: number;
   y: number;
 };

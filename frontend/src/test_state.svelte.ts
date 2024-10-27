@@ -14,7 +14,6 @@ export let viewer = $state<Viewer>({
         color: "red",
         id: "lasse",
         name: "Lasse",
-        held: [],
       },
     ],
 
@@ -26,9 +25,16 @@ export let viewer = $state<Viewer>({
     ],
     ground: [
       {
+        player_id: null,
         sprite_id: "king",
         x: 0,
         y: 0,
+      },
+      {
+        player_id: null,
+        sprite_id: "king",
+        x: 100,
+        y: 100,
       },
     ],
   },
